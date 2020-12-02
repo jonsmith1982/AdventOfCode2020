@@ -1,7 +1,7 @@
 
 numbers_array = []
 
-f = open("puzzle1.txt", "r")
+f = open("challenge-01-12-2020.txt", "r")
 for x in f:
   numbers_array.append(int(x.rstrip()))
 f.close()
