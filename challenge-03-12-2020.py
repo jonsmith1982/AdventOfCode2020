@@ -40,7 +40,7 @@ f.close()
 # Right 7, down 1. 98
 # Right 1, down 2. 49
 
-
+# 104 * 230 * 83 * 98 * 49 = 9533698720
 
 print(trees)
 
