@@ -39,18 +39,14 @@ def part1(input):
       directions['w'] += amount
     elif (direction == 'F'):
       way_point = angle / 90
-      #print(angle, amount)
       directions[compass[round(way_point)]] += amount
       
-  #print(directions['n'], directions['s'], directions['e'], directions['w'])
-  return((directions['s'] - directions['s']) + (directions['e'] - directions['w']))
+  return((directions['s'] - directions['n']) + (directions['w'] - directions['e']))
 
 def part2(input):
   waypoint = {'n': 1, 'e': 10, 's': 0, 'w': 0}
   position = {'n': 0, 'e': 0, 's': 0, 'w': 0}
-  angle = 0
   compass = ['n', 'e', 's', 'w', 'n']
-  compass_point = 0
 
   for x in input:
     next_instruction = re.findall('([FRLNSEW]{1})(\d+)' ,x)
@@ -58,35 +54,24 @@ def part2(input):
     
     direction = next_instruction[0]
     amount = int(next_instruction[1])
-    #print(next_instruction)
 
     if (direction == 'L'):
-      previous_waypoint = [waypoint[compass[compass_point]], waypoint[compass[compass_point+1]]]
-      previous_compass_point = compass_point
-      angle -= amount
-      if (angle < 0):
-        angle += 360
-      compass_point = int(angle / 90)
-      waypoint[compass[compass_point]] = previous_waypoint[0]
-      waypoint[compass[compass_point+1]] = previous_waypoint[1]
-      if (previous_compass_point not in [compass_point, compass_point + 1]):
-        waypoint[compass[previous_compass_point]] = 0
-      if (previous_compass_point + 1 not in [compass_point, compass_point + 1]):
-        waypoint[compass[previous_compass_point+1]] = 0
+      while (amount > 0):
+        waypoint_copy = waypoint.copy()
+        amount -= 90
+        waypoint['n'] = waypoint_copy['e']
+        waypoint['e'] = waypoint_copy['s']
+        waypoint['s'] = waypoint_copy['w']
+        waypoint['w'] = waypoint_copy['n']
       
     elif (direction == 'R'):
-      previous_waypoint = [waypoint[compass[compass_point]], waypoint[compass[compass_point+1]]]
-      previous_compass_point = compass_point
-      angle += amount
-      if (angle >= 360):
-        angle -= 360
-      compass_point = int(angle / 90)
-      waypoint[compass[compass_point]] = previous_waypoint[0]
-      waypoint[compass[compass_point+1]] = previous_waypoint[1]
-      if (previous_compass_point not in [compass_point, compass_point + 1]):
-        waypoint[compass[previous_compass_point]] = 0
-      if (previous_compass_point + 1 not in [compass_point, compass_point + 1]):
-        waypoint[compass[previous_compass_point+1]] = 0
+      while (amount > 0):
+        waypoint_copy = waypoint.copy()
+        amount -= 90
+        waypoint['n'] = waypoint_copy['w']
+        waypoint['e'] = waypoint_copy['n']
+        waypoint['s'] = waypoint_copy['e']
+        waypoint['w'] = waypoint_copy['s']
         
     elif (direction == 'N'):
       if (waypoint['s'] > 0 and waypoint['s'] > amount):
@@ -95,10 +80,6 @@ def part2(input):
       elif (waypoint['s'] > 0):
         waypoint['n'] = amount - waypoint['s']
         waypoint['s'] = 0
-        if (waypoint['e'] > 0):
-          compass_point = 0
-        else :
-          compass_point = 3
       else :
         waypoint['n'] += amount
       
@@ -109,10 +90,6 @@ def part2(input):
       elif (waypoint['n'] > 0):
         waypoint['s'] = amount - waypoint['n']
         waypoint['n'] = 0
-        if (waypoint['e'] > 0):
-          compass_point = 1
-        else :
-          compass_point = 2
       else :
         waypoint['s'] += amount
       
@@ -123,10 +100,6 @@ def part2(input):
       elif (waypoint['w'] > 0):
         waypoint['e'] = amount - waypoint['w']
         waypoint['w'] = 0
-        if (waypoint['s'] > 0):
-          compass_point = 2
-        else :
-          compass_point = 0
       else :
         waypoint['e'] += amount
       
@@ -137,21 +110,13 @@ def part2(input):
       elif (waypoint['e'] > 0):
         waypoint['w'] = amount - waypoint['e']
         waypoint['e'] = 0
-        if (waypoint['s'] > 0):
-          compass_point = 2
-        else :
-          compass_point = 3
       else :
         waypoint['w'] += amount
       
     elif (direction == 'F'):
       for point in waypoint:
-        position[point] = position[point] + (waypoint[point] * amount)
-      #print('position', position)
-    
-    #print(waypoint, amount)
+        position[point] += (waypoint[point] * amount)    
   
-  #print(position['s'], position['n'], position['e'], position['w'])
   return((position['s'] - position['n']) + (position['e'] - position['w']))
 
 print("PartI:", part1(puzzle_input))
