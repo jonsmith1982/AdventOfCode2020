@@ -78,5 +78,5 @@ for x in f:
   
 f.close()
 
-print mySeatID
+print(mySeatID)
 

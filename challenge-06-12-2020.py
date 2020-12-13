@@ -36,7 +36,7 @@ for x in f:
     # process questionaire per group here
     for q in questions:
       if (questions[q] == people):
-	count = count + 1
+        count = count + 1
     questions = dict()
     people = 0
     continue

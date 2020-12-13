@@ -17,8 +17,8 @@ while (len(bags) != 0):
       if (re.match("\w*\s*\w+ \w+ bags contain.*\d+ " + colour, x)):
         split = re.split("s contain", x)
         if (split[0] not in bags_copy):
-	  bags_copy.append(split[0])
-	  #print(split[0])
+          bags_copy.append(split[0])
+          #print(split[0])
           bags.append(split[0])
           count = count + 1
           #print x
@@ -65,13 +65,13 @@ while (len(current_levels) != 0):
     for x in f:
       x = x.rstrip()
       if (re.match(colour + 's contain', x)):
-	
+
         split = re.split("s contain", x)
         #name = re.sub("\s", "_", split[0])
         next_levels = re.findall("\d+ \w*\s*\w+ \w+ bag", split[1])
         #print(next_levels)
         if (len(next_levels) != 0):
-	  #print('wtf')
+          #print('wtf')
           remaining_levels.append(next_levels)
           all_levels.append(next_levels)
           #print(colour, ' '.join(next_levels))

@@ -15,15 +15,15 @@ def validate_passport(a):
   if ('byr' in a and int(a['byr']) in range(1920, 2003)):
     if ('iyr' in a and int(a['iyr']) in range(2010, 2021)):
       if ('eyr' in a and int(a['eyr']) in range(2020, 2031)):
-	if ('hgt' in a):
-	  height = re.split("^(\d{1,3})(cm|in)$", a['hgt'])
-	  if (len(height) == 4):
-	    height.pop(0)
-	    height.pop()
-	    if ((height[1] == 'cm' and int(height[0]) in range(150, 194)) or (height[1] == 'in' and int(height[0]) in range(59, 77))):
-	      if ('hcl' in a and re.match("^#[a-z0-9]{6}$", a['hcl'])):
-		if ('ecl' in a and re.match("^(amb|blu|brn|gry|grn|hzl|oth)$", a['ecl'])):
-		  if ('pid' in a and re.match("^\d{9}$", a['pid'])):
+        if ('hgt' in a):
+          height = re.split("^(\d{1,3})(cm|in)$", a['hgt'])
+          if (len(height) == 4):
+            height.pop(0)
+            height.pop()
+            if ((height[1] == 'cm' and int(height[0]) in range(150, 194)) or (height[1] == 'in' and int(height[0]) in range(59, 77))):
+              if ('hcl' in a and re.match("^#[a-z0-9]{6}$", a['hcl'])):
+                if ('ecl' in a and re.match("^(amb|blu|brn|gry|grn|hzl|oth)$", a['ecl'])):
+                  if ('pid' in a and re.match("^\d{9}$", a['pid'])):
                     return 1
   return 0
 
