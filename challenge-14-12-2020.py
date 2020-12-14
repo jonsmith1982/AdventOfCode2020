@@ -20,7 +20,7 @@ def part1(input):
     if (re.match('^mask', x)):
       mask = re.split(' = ', x)[1]
     elif (re.match('^mem', x)):
-      data = re.findall('mem\[(\d+)\] \= (\d+)', x)[0]
+      data = re.findall('(\d+)', x)
       binary_data = int(data[1])
       memory_location = int(data[0])
       binary_data = f"{binary_data:#038b}"
@@ -49,7 +49,7 @@ def part2(input):
     if (re.match('^mask', x)):
       mask = re.split(' = ', x)[1]
     elif (re.match('^mem', x)):
-      data = re.findall('mem\[(\d+)\] \= (\d+)', x)[0]
+      data = re.findall('(\d+)', x)
       value = int(data[1])
       memory_location = int(data[0])
       binary_data = f"{memory_location:#038b}"
@@ -66,18 +66,8 @@ def part2(input):
 
   return(sum(memory.values()))
 
-def test_part1(answer):
-  assert answer == 16003257187056
-
-def test_part2(answer):
-  assert answer == 3219837697833
-
-part1_result = part1(puzzle_input)
-part2_result = part2(puzzle_input)
-print("PartI:", part1_result)
-test_part1(part1_result)
-print("PartII:",part2_result)
-test_part2(part2_result)
+print("PartI:", part1(puzzle_input))
+print("PartII:",part2(puzzle_input))
 
 if debug:
   end = time.perf_counter()
