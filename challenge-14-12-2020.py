@@ -20,7 +20,7 @@ def part1(input):
     if (re.match('^mask', x)):
       mask = re.split(' = ', x)[1]
     elif (re.match('^mem', x)):
-      data = re.findall('(\d+)', x)
+      data = re.findall('([0-9]+)', x)
       binary_data = int(data[1])
       memory_location = int(data[0])
       binary_data = f"{binary_data:#038b}"
@@ -49,7 +49,7 @@ def part2(input):
     if (re.match('^mask', x)):
       mask = re.split(' = ', x)[1]
     elif (re.match('^mem', x)):
-      data = re.findall('(\d+)', x)
+      data = re.findall('([0-9]+)', x)
       value = int(data[1])
       memory_location = int(data[0])
       binary_data = f"{memory_location:#038b}"
