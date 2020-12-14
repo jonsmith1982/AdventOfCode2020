@@ -66,12 +66,18 @@ def part2(input):
 
   return(sum(memory.values()))
 
+def test_part1(answer):
+  assert answer == 16003257187056
+
+def test_part2(answer):
+  assert answer == 3219837697833
+
 part1_result = part1(puzzle_input)
 part2_result = part2(puzzle_input)
 print("PartI:", part1_result)
-assert part1_result == 16003257187056
+test_part1(part1_result)
 print("PartII:",part2_result)
-assert part2_result == 3219837697833
+test_part2(part2_result)
 
 if debug:
   end = time.perf_counter()
