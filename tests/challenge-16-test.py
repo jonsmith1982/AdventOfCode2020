@@ -1,4 +1,4 @@
-challenge = __import__('challenge-15-12-2020')
+challenge = __import__('challenge-16-12-2020')
 
 with open("challenge-16-12-2020.txt","r") as f:
   puzzle_input = [x.strip() for x in f]
