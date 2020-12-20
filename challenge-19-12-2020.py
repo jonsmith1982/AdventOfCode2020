@@ -12,20 +12,37 @@ with open("challenge-19-12-2020.txt","r") as f:
 
 def part1(input):
   all_rules = dict()
+  routes = []
   
   def parse_rules(i, rules):
-    rule = []
+    routes_copy = routes
+    #print(i, rules)
     if (isinstance(rules, list)):
-      print(i, rules)
-      for x in rules:
-        #rule[i].append(x)
-        next_rules = re.findall("(\d+)", x)
-        for y in next_rules:
-          rule.append(all_rules[y])
-          parse_rules(y, all_rules[y])
+      #routes.append(rules)
+      for x, y in enumerate(rules):
+        #print(x, y)
+        for z in range(len(routes_copy)):
+          if (x == 1):
+            routes.append(re.sub(' *' + i + ' *', ' ' + y + ' ', routes_copy[z]))
+          else :
+            routes[z] = re.sub(' *' + i + ' *', ' ' + y + ' ', routes[z])
+        #print(routes[z])
+        ##rule[i].append(x)
+        next_rules = re.findall("(\d+)", y)
+        #all_rules['0'] = [re.sub(i, ' '.join(next_rules), z) for z in all_rules['0']]
+        #print(all_rules['0'])
+        for z in next_rules:
+          #print(i,' - ', x, ' - ', y)
+          #all_rules['0'] = re.sub(re.escape(str(i)), re.escape(str(y)), all_rules['0'])  
+          #rule.append(all_rules[y])
+          #print(rule)
+          parse_rules(z, all_rules[z])
     elif (isinstance(rules, str)):
-      print(i, rules)
-      return(rule)
+      for z in range(len(routes_copy)):
+        routes[z] = re.sub(i, ' ' + rules + ' ', routes[z])
+      #for route in routes:
+        #print(route)
+      #return(rule)
   
   for i in range(139):
     rule = re.split(': ', input[i])
@@ -36,10 +53,11 @@ def part1(input):
     all_rules[rule[0]] = rule[1]
     #break
   
-  
+  routes.append(' '.join(all_rules['0']))
   combinations = [parse_rules('0', all_rules['0'])]
-  #print(all_rules['0'])
-  print(combinations)
+  for route in routes:
+    print(route)
+  #print(combinations)
   
   return(1)
 
